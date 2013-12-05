@@ -8,7 +8,7 @@ var socket = sockjs.createServer();
 // init socket
 exports.init = function(server){
     socket.on('connection', newConnection);
-    socket.installHandlers(server, {prefix:'/chat'});
+    socket.installHandlers(server, {prefix: app.get('CHAT_ROUTE')});
 };
 
 var newConnection = function(conn) {
