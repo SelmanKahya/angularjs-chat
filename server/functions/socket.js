@@ -2,7 +2,7 @@
 var sockjs = require('sockjs');
 
 // open socket for chat
-var connections = [];
+var users = [];
 var socket = sockjs.createServer();
 
 // init socket
@@ -11,19 +11,16 @@ exports.init = function(server){
     socket.installHandlers(server, {prefix: app.get('CHAT_ROUTE')});
 };
 
+// there is a new connection
 var newConnection = function(conn) {
 
-    var number = connections.length;
-
-    conn.id = number;
-
-    conn.game = {
-        looking: false,
-        opponent: null
-    };
+    // keep user_info on conn object
+    conn.user_info = {
+        id: users.length,
+        name: ''
+    }
 
     conn.on('data', function(message) {
-
 
         var message = JSON.parse(message);
 
@@ -46,50 +43,21 @@ var newConnection = function(conn) {
                 }
             }
         }
-
-
-        else if(message.type == 'game')  {
-
-            if(message.action == 'find-opponent'){
-                console.log(message.user.user_first_name, "looking for a match")
-                conn.game.looking = true;
-
-                for (var ii=0; ii < connections.length; ii++) {
-
-                    var connection = connections[ii];
-
-                    if(conn.id != connection.id && connection.game.looking)    {
-
-                        conn.game.looking = false;
-                        connection.game.looking = false;
-
-                        conn.game.opponent = connection;
-                        connection.game.opponent = conn;
-
-                        conn.write("You can chat with your opponent here.");
-                        connection.write("You can chat with your opponent here.");
-                    }
-                }
-            }
-
-            else if(message.action == 'start'){
-
-            }
-
-            else if(message.action == 'won'){
-                conn.game.opponent.write('lost')
-            }
-        }
-
     });
 
+    // on close, tell all the users that somebody has left the chat room
     conn.on('close', function(){
-
-        conn.game.looking = false;
-        conn.game.opponent.game.looking = false;
-
-        conn.game.opponent.write("disconnected");
+        var name = conn.user_info.name;
+        for (var ii=0; ii < users.length; ii++) {
+            users.write(name + " has been disconnected!");
+        }
     });
 
-    connections.push(conn);
+    // tell all the users, somebody has joined
+    for (var ii=0; ii < users.length; ii++) {
+        users.write(conn.user_info.name + " has joined!");
+    }
+
+    // push new connection into the array
+    users.push(conn);
 }
