@@ -7,12 +7,15 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 
+// functions
+var socket = require('./functions/socket.js');
+
 // routes
 var routes = require('./routes');
 var chat = require('./routes/chat');
 
 // application
-var app = express();
+app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -25,12 +28,19 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+// route definitions
 app.get('/', routes.index);
-app.get('/chat', chat.init);
+app.set('CHAT_ROUTE', '/chat');
 app.get('/chat/users', chat.users);
 
-http.createServer(app).listen(app.get('port'), function(){
+// Server is starting, hold on!
+var server = http.createServer(app);
 
-  console.log('Express server listening on port ' + app.get('port'));
+server.listen(app.get('port'), function(){
+
+    console.log('Express server listening on port ' + app.get('port'));
+
+    // start listening /chat
+    socket.init(server);
 
 });
