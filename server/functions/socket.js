@@ -5,7 +5,7 @@ var sockjs = require('sockjs');
 var users = [];
 var socket = sockjs.createServer();
 
-// init socket
+// install socket handlers on server on defined route
 exports.init = function(server){
     socket.on('connection', newConnection);
     socket.installHandlers(server, {prefix: app.get('CHAT_ROUTE')});
@@ -38,6 +38,7 @@ var newConnection = function(conn) {
     users.push(conn);
 }
 
+// broadcasts given message to all connected users
 var broadcast = function(message){
     for (var ii=0; ii < users.length; ii++) {
         users[ii].write(message);
