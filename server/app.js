@@ -4,9 +4,9 @@ http = require('http');
 path = require('path');
 
 // functions
-var socket = require('./functions/socket.js');
-var route = require('./functions/route.js');
-var environment = require('./functions/environment.js');
+var socket = require('./func/socket.js');
+var route = require('./func/route.js');
+var environment = require('./func/environment.js');
 
 // application
 app = express();
