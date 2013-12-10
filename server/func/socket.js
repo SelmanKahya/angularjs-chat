@@ -31,10 +31,10 @@ var newConnection = function(conn) {
         broadcast(name + " has been disconnected!");
     });
 
-    // tell all the users, somebody has joined
+    // tell all the users that somebody has joined
     broadcast(conn.user_info.name + " has joined!");
 
-    // push new connection into the array
+    // push new connection object into the users array
     users.push(conn);
 }
 
