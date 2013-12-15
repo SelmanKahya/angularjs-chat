@@ -1,0 +1,19 @@
+{
+    "name": "angular-app",
+    "version": "0.0.0",
+    "homepage": "https://github.com/Selmanh/angularjs-chat",
+    "authors": [
+        "Selman K. <selmanhalid@gmail.com>"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "json3": "~3.2.4"
+    }
+}
