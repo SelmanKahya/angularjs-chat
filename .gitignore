@@ -1,3 +1,6 @@
 # node server
 server/.idea/
 server/node_modules/
+
+# angular
+angular-app/.idea/
