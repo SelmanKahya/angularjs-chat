@@ -1,4 +1,4 @@
-<div style="padding: 30px; text-align: center;">
+<div ng-hide="chat.started" style="padding: 30px; text-align: center;">
     <form name="myForm">
         <div class="row">
             <div class="span5" style="text-align: right;">
@@ -10,4 +10,9 @@
             </div>
         </div>
     </form>
+</div>
+
+
+<div ng-show="chat.started" style="padding: 30px; text-align: center;">
+
 </div>
