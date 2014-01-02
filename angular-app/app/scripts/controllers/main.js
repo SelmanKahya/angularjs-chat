@@ -1,11 +1,12 @@
 'use strict';
 
-angular.module('angularAppApp').controller('MainCtrl', function ($scope) {
+angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route) {
 
     $scope.messageText = "";
     $scope.history = "";
 
     $scope.chat = {
+
         socket: null,
 
         status : {
@@ -31,6 +32,11 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope) {
         }
     }
 
+    $scope.quit = function() {
+        $scope.chat.socket.close();
+        $route.reload();
+    };
+
     // successfully connected to the server
     $scope.onOpen = function(e) {
         $scope.chat.data.username = $scope.username;
@@ -42,7 +48,7 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope) {
 
     // message came from the server
     $scope.onMessage = function(e) {
-        $scope.chat.data.history += e.data + '\n';
+        $scope.chat.data.history += e.data + '<br/>';
         $scope.$apply();
     };
 
@@ -61,6 +67,9 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope) {
     $scope.sendMessage = function() {
         $scope.chat.socket.send(JSON.stringify({type: 'message', data: $scope.messageText}));
         $scope.messageText = "";
+
+        var objDiv = document.getElementById("chat-history");
+        objDiv.scrollTop = objDiv.scrollHeight;
     };
 
 });
