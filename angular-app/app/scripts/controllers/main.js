@@ -48,7 +48,8 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route)
 
     // message came from the server
     $scope.onMessage = function(e) {
-        $scope.chat.data.history += e.data + '<br/>';
+        $scope.chat.data.history += e.data + '\n';
+        $scope.scrollBottom();
         $scope.$apply();
     };
 
@@ -67,9 +68,13 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route)
     $scope.sendMessage = function() {
         $scope.chat.socket.send(JSON.stringify({type: 'message', data: $scope.messageText}));
         $scope.messageText = "";
-
-        var objDiv = document.getElementById("chat-history");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        $scope.scrollBottom();
     };
 
+    // scroll to the bottom, after new line concat
+    $scope.scrollBottom = function(){
+        angular.element("#chat-history").animate({
+            scrollTop: angular.element("#chat-history")[0].scrollHeight - angular.element("#chat-history").height()
+        }, 500)
+    }
 });
