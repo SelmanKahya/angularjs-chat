@@ -21,7 +21,17 @@
 
 <!-- chat room -->
 <div ng-show="chat.status.started" style="text-align: center;">
-    <div id="chat-history" style="text-align: left; width: 90%; height: 200px; overflow: auto;" ng-bind-html="chat.data.history"></div>
-    <input type="text" ng-model="messageText" placeholder="Type your message here" />
-    <input type="button" class="btn btn-primary" data-ng-disabled="messageText == ''" ng-click="sendMessage()" value="Send!"/>
+    <div class="row">
+        <div class="span9" style="text-align: center;">
+            <textarea id="chat-history" style="width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; overflow-y: scroll; overflow-x: hidden; height: 200px;" ng-model="chat.data.history"></textarea>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 50px">
+        <div class="span7">
+            <input style="width: 100%;" ng-model="messageText" name="messageText" type="text" placeholder="Type your message here..">
+        </div>
+        <div class="span2">
+            <input style="width: 100%" type="button" class="btn btn-primary" data-ng-disabled="messageText == ''" ng-click="sendMessage()" value="Send!"/>
+        </div>
+    </div>
 </div>
