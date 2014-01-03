@@ -1,20 +1,27 @@
-<div ng-hide="chat.started" style="padding: 30px; text-align: center;">
+<!-- login pane -->
+<div ng-hide="chat.status.started">
     <form name="myForm">
-        <div class="row">
-            <div class="span5" style="text-align: right;">
+        <div class="row" style="margin: 50px 0;">
+            <div class="span6" style="text-align: right;">
                 <input style="width: 80%" ng-model="username" name="username" required type="text" placeholder="Your nick-name..">
                 <span class="error" ng-show="myForm.username.$error.required">*</span><br>
             </div>
             <div class="span3">
-                <a class="btn btn-primary" ng-disabled="myForm.username.$error.required" ng-click="start()">Start chatting!</a>
+                <a class="btn btn-primary" ng-disabled="myForm.username.$error.required" ng-click="init()">Start chatting!</a>
             </div>
         </div>
     </form>
 </div>
 
+<!-- error message -->
+<div ng-show="!chat.status.started && chat.status.error" style="width: 40%; margin: 10px auto 40px; padding: 15px; text-align: center; background-color: #FFD0D0; -webkit-border-radius: 11px; -moz-border-radius: 11px; border-radius: 11px;">
+    <strong>Error:</strong> {{chat.status.error}} <br/>
+    Please try again later..
+</div>
 
-<div ng-show="chat.started" style="padding-bottom: 30px; text-align: center;">
-    <textarea style="width: 100%; height: 100px;" ng-model="history"></textarea>
+<!-- chat room -->
+<div ng-show="chat.status.started" style="text-align: center;">
+    <textarea style="width: 100%; height: 100px;" ng-model="chat.data.history"></textarea>
     <input type="text" ng-model="messageText" placeholder="Type your message here" />
     <a class="btn btn-primary" ng-click="sendMessage()">Send</a>
 </div>
