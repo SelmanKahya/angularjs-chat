@@ -21,8 +21,19 @@ var newConnection = function(conn) {
     }
 
     conn.on('data', function(message) {
+        console.log('data', message)
         var message = JSON.parse(message);
-        broadcast(conn.user_info.name + ": " + message.data);
+        if(message.type == 'message'){
+            broadcast(conn.user_info.name + ": " + message.data);
+        }
+
+        else if(message.type == 'introduce'){
+            // save username
+            conn.user_info.name = message.data;
+
+            // tell all the users that somebody has joined
+            broadcast(conn.user_info.name + " has joined!");
+        }
     });
 
     // on close, tell all the users that somebody has left the chat room
@@ -31,15 +42,15 @@ var newConnection = function(conn) {
         broadcast(name + " has been disconnected!");
     });
 
-    // tell all the users that somebody has joined
-    broadcast(conn.user_info.name + " has joined!");
-
     // push new connection object into the users array
     users.push(conn);
 }
 
 // broadcasts given message to all connected users
 var broadcast = function(message){
+    console.log('broadcast', message)
+    console.log('users', users)
+
     for (var ii=0; ii < users.length; ii++) {
         users[ii].write(message);
     }
