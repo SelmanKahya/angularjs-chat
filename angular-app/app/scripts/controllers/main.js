@@ -2,28 +2,65 @@
 
 angular.module('angularAppApp').controller('MainCtrl', function ($scope) {
 
-    var sock = new SockJS('http://localhost:3000/chat');
-
     $scope.messageText = "";
     $scope.history = "";
 
     $scope.chat = {
-        username: '',
-        started: false
-    }
+        socket: null,
 
-    // checks the username and init chat room
-    $scope.start = function(){
-        if($scope.username){
-            $scope.chat.username = $scope.username;
-            $scope.chat.started = true;
+        status : {
+            error: null,
+            started: false
+        },
+
+        data : {
+            username: '',
+            history: ''
         }
     }
 
+    // checks the username and init chat room
+    $scope.init = function(){
+        if($scope.username){
+            var socket = new SockJS('http://localhost:3000/chat', null, {debug: true});
+            socket.onopen = $scope.onOpen;
+            socket.onmessage = $scope.onMessage;
+            socket.onerror = $scope.onError;
+            socket.onclose = $scope.onError;
+            $scope.chat.socket = socket;
+        }
+    }
+
+    // successfully connected to the server
+    $scope.onOpen = function(e) {
+        $scope.chat.data.username = $scope.username;
+        $scope.chat.status.started = true;
+        $scope.chat.status.error = null;
+        $scope.chat.socket.send(JSON.stringify({type: 'introduce', data: $scope.chat.data.username}));
+        $scope.$apply();
+    };
+
+    // message came from the server
+    $scope.onMessage = function(e) {
+        $scope.chat.data.history += e.data + '\n';
+        $scope.$apply();
+    };
+
+    // sends the message
+    $scope.onError = function(e) {
+        // stop chat, show error message to the user
+        $scope.chat.status.error = e.reason;
+        $scope.chat.status.started = false;
+
+        // print error
+        console.log('onerror: ', e);
+        $scope.$apply();
+    };
+
     // sends the message
     $scope.sendMessage = function() {
-        sock.send(JSON.stringify({type: 'message', data: $scope.messageText}));
-        $scope.history += '\n' + $scope.history;
+        $scope.chat.socket.send(JSON.stringify({type: 'message', data: $scope.messageText}));
         $scope.messageText = "";
     };
+
 });
