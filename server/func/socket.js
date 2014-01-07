@@ -11,6 +11,10 @@ exports.init = function(server){
     socket.installHandlers(server, {prefix: app.get('CHAT_ROUTE')});
 };
 
+exports.getOnlineUsers = function(){
+    return users;
+}
+
 // there is a new connection
 var newConnection = function(conn) {
 
@@ -48,9 +52,6 @@ var newConnection = function(conn) {
 
 // broadcasts given message to all connected users
 var broadcast = function(message){
-    console.log('broadcast', message)
-    console.log('users', users)
-
     for (var ii=0; ii < users.length; ii++) {
         users[ii].write(message);
     }
