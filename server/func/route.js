@@ -13,6 +13,6 @@ exports.init = function(){
     app.set('CHAT_ROUTE', '/chat');
 
     // returns list of online users
-    app.get('/chat/users', chat.users);
+    app.get('/users', chat.users);
 
 };
