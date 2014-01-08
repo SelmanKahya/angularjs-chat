@@ -20,10 +20,10 @@
 </div>
 
 <!-- chat room -->
-<div ng-show="chat.status.started" style="text-align: center;">
+<div ng-show="chat.status.started">
     <div class="span7">
         <div class="row">
-            <div class="span7" style="text-align: center;">
+            <div class="span7">
                 <textarea id="chat-history" style="width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; overflow-y: scroll; overflow-x: hidden; height: 350px;" ng-model="chat.data.history"></textarea>
             </div>
         </div>
@@ -39,10 +39,10 @@
     <div class="clearfix"></div>
 
     <div class="span6">
-        <input style="width: 100%;" ng-model="messageText" name="messageText" type="text" placeholder="Type your message here..">
+        <input style="width: 100%;" ng-model="chat.data.messageText" name="messageText" type="text" placeholder="Type your message here..">
     </div>
-    <div class="span3">
-        <input style="width: 65%" type="button" class="btn btn-primary" data-ng-disabled="messageText == ''" ng-click="sendMessage()" value="Send!"/>
+    <div class="span3" style="text-align: right;">
+        <input style="width: 65%" type="button" class="btn btn-primary" data-ng-disabled="chat.data.messageText == ''" ng-click="sendMessage()" value="Send!"/>
         <input style="width: 30%" type="button" class="btn btn-danger" ng-click="quit()" value="Quit"/>
     </div>
 
