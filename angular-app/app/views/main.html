@@ -33,24 +33,19 @@
         <div>
             <span class="label label-info">Online Users</span>
         </div>
-        <div>
-            <table>
-                <tr>
-                    <td>1.</td>
-                    <td>Selman</td>
-                </tr>
-            </table>
-        </div>
+        <span ng-repeat="user in chat.data.users">{{user.name}} <br/></span>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="span7">
+    <div class="span6">
         <input style="width: 100%;" ng-model="messageText" name="messageText" type="text" placeholder="Type your message here..">
     </div>
-    <div class="span2">
-        <input style="width: 100%" type="button" class="btn btn-primary" data-ng-disabled="messageText == ''" ng-click="sendMessage()" value="Send!"/>
+    <div class="span3">
+        <input style="width: 65%" type="button" class="btn btn-primary" data-ng-disabled="messageText == ''" ng-click="sendMessage()" value="Send!"/>
+        <input style="width: 30%" type="button" class="btn btn-danger" ng-click="quit()" value="Quit"/>
     </div>
 
     <div class="clearfix"></div>
+
 </div>
