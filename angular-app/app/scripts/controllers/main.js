@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route) {
+angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route, $timeout, userService) {
 
     $scope.messageText = "";
     $scope.history = "";
@@ -15,6 +15,7 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route)
         },
 
         data : {
+            users: [],
             username: '',
             history: ''
         }
@@ -31,7 +32,6 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route)
             $scope.chat.socket = socket;
         }
     }
-
     $scope.quit = function() {
         $scope.chat.socket.close();
         $route.reload();
@@ -43,6 +43,7 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route)
         $scope.chat.status.started = true;
         $scope.chat.status.error = null;
         $scope.chat.socket.send(JSON.stringify({type: 'introduce', data: $scope.chat.data.username}));
+        $scope.checkOnlineUsers();
         $scope.$apply();
     };
 
@@ -70,6 +71,14 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route)
         $scope.messageText = "";
         $scope.scrollBottom();
     };
+
+    // periodically checks online users, retrieve list of users from the server
+    $scope.checkOnlineUsers = function() {
+        userService.online(function(result){
+            $scope.chat.data.users = result;
+            $timeout($scope.checkOnlineUsers, 5000);
+        });
+    }
 
     // scroll to the bottom, after new line concat
     $scope.scrollBottom = function(){
