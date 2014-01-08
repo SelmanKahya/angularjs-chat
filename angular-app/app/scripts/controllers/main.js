@@ -1,9 +1,6 @@
 'use strict';
 
-angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route, $timeout, userService) {
-
-    $scope.messageText = "";
-    $scope.history = "";
+angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route, $timeout, chatService) {
 
     $scope.chat = {
 
@@ -17,14 +14,15 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route,
         data : {
             users: [],
             username: '',
-            history: ''
+            history: '',
+            messageText: ''
         }
     }
 
     // checks the username and init chat room
     $scope.init = function(){
         if($scope.username){
-            var socket = new SockJS('http://localhost:3000/chat', null, {debug: true});
+            var socket = chatService.socket();
             socket.onopen = $scope.onOpen;
             socket.onmessage = $scope.onMessage;
             socket.onerror = $scope.onError;
@@ -67,14 +65,14 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route,
 
     // sends the message
     $scope.sendMessage = function() {
-        $scope.chat.socket.send(JSON.stringify({type: 'message', data: $scope.messageText}));
-        $scope.messageText = "";
+        $scope.chat.socket.send(JSON.stringify({type: 'message', data: $scope.chat.data.messageText}));
+        $scope.chat.data.messageText = '';
         $scope.scrollBottom();
     };
 
-    // periodically checks online users, retrieve list of users from the server
+    // periodically checks online users, retrieve list of the users from the server
     $scope.checkOnlineUsers = function() {
-        userService.online(function(result){
+        chatService.onlineUsers(function(result){
             $scope.chat.data.users = result;
             $timeout($scope.checkOnlineUsers, 5000);
         });
