@@ -24,9 +24,10 @@ var newConnection = function(conn) {
         name: ''
     }
 
+    // on data
     conn.on('data', function(message) {
-        console.log('data', message)
         var message = JSON.parse(message);
+
         if(message.type == 'message'){
             broadcast(conn.user_info.name + ": " + message.data);
         }
@@ -40,10 +41,22 @@ var newConnection = function(conn) {
         }
     });
 
-    // on close, tell all the users that somebody has left the chat room
+
+    // on close,
+    // tell all the users that somebody has left the chat room
+    // delete user from the array
     conn.on('close', function(){
+
+        // broadcast
         var name = conn.user_info.name;
         broadcast(name + " has been disconnected!");
+
+        // delete user
+        for (var ii=0; ii < users.length; ii++) {
+            if(users[ii] == conn){
+                users.splice(ii);
+            }
+        }
     });
 
     // push new connection object into the users array
