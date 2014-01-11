@@ -108,4 +108,37 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     height: 350px;
+    text-align: center;
+}
+
+.login-pane {
+    margin: 50px 0;
+}
+
+.login-pane .input-field {
+    text-align: right;
+}
+
+.login-pane .input-field input{
+    width: 80%;
+}
+
+.chat-bottom {
+
+}
+
+.chat-bottom .message {
+    width: 100%;
+}
+
+.chat-bottom .buttons {
+    text-align: right;
+}
+
+.chat-bottom .buttons .send-button {
+    width: 65%;
+}
+
+.chat-bottom .buttons .quit-button {
+    width: 30%;
 }
