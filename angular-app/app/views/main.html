@@ -14,7 +14,7 @@
 </div>
 
 <!-- error message -->
-<div ng-show="!chat.status.started && chat.status.error" style="width: 40%; margin: 10px auto 40px; padding: 15px; text-align: center; background-color: #FFD0D0; -webkit-border-radius: 11px; -moz-border-radius: 11px; border-radius: 11px;">
+<div ng-show="!chat.status.started && chat.status.error" id="connection-error">
     <strong>Error:</strong> {{chat.status.error}} <br/>
     Please try again later..
 </div>
@@ -24,12 +24,12 @@
     <div class="span7">
         <div class="row">
             <div class="span7">
-                <textarea id="chat-history" style="width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-align: left; overflow-y: scroll; overflow-x: hidden; height: 350px;" ng-model="chat.data.history"></textarea>
+                <textarea id="chat-history" ng-model="chat.data.history"></textarea>
             </div>
         </div>
     </div>
 
-    <div class="span2" style="overflow-y: scroll; overflow-x: hidden; height: 350px;">
+    <div class="span2" id="online-user-list">
         <div>
             <span class="label label-info">Online Users</span>
         </div>
