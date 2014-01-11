@@ -1,9 +1,9 @@
 <!-- login pane -->
 <div ng-hide="chat.status.started">
     <form name="myForm">
-        <div class="row" style="margin: 50px 0;">
-            <div class="span6" style="text-align: right;">
-                <input style="width: 80%" ng-model="username" name="username" required type="text" placeholder="Your nick-name..">
+        <div class="row" class="login-pane">
+            <div class="span6" class="input-field">
+                <input ng-model="username" name="username" required type="text" placeholder="Your nick-name..">
                 <span class="error" ng-show="myForm.username.$error.required">*</span><br>
             </div>
             <div class="span3">
@@ -38,14 +38,14 @@
 
     <div class="clearfix"></div>
 
-    <div class="span6">
-        <input style="width: 100%;" ng-model="chat.data.messageText" name="messageText" type="text" placeholder="Type your message here..">
+    <div class="chat-bottom">
+        <div class="span6" class="message">
+            <input ng-model="chat.data.messageText" name="messageText" type="text" placeholder="Type your message here..">
+        </div>
+        <div class="span3" class="buttons">
+            <input class="send-button" type="button" class="btn btn-primary" data-ng-disabled="chat.data.messageText == ''" ng-click="sendMessage()" value="Send!"/>
+            <input class="quit-button" type="button" class="btn btn-danger" ng-click="quit()" value="Quit"/>
+        </div>
     </div>
-    <div class="span3" style="text-align: right;">
-        <input style="width: 65%" type="button" class="btn btn-primary" data-ng-disabled="chat.data.messageText == ''" ng-click="sendMessage()" value="Send!"/>
-        <input style="width: 30%" type="button" class="btn btn-danger" ng-click="quit()" value="Quit"/>
-    </div>
-
     <div class="clearfix"></div>
-
 </div>
