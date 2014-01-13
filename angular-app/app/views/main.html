@@ -1,8 +1,8 @@
 <!-- login pane -->
 <div ng-hide="chat.status.started">
     <form name="myForm">
-        <div class="row" class="login-pane">
-            <div class="span6" class="input-field">
+        <div class="row login-pane">
+            <div class="span6 input-field">
                 <input ng-model="username" name="username" required type="text" placeholder="Your nick-name..">
                 <span class="error" ng-show="myForm.username.$error.required">*</span><br>
             </div>
@@ -39,12 +39,12 @@
     <div class="clearfix"></div>
 
     <div class="chat-bottom">
-        <div class="span6" class="message">
-            <input ng-model="chat.data.messageText" name="messageText" type="text" placeholder="Type your message here..">
+        <div class="span6">
+            <input class="message" ng-model="chat.data.messageText" name="messageText" type="text" placeholder="Type your message here..">
         </div>
-        <div class="span3" class="buttons">
-            <input class="send-button" type="button" class="btn btn-primary" data-ng-disabled="chat.data.messageText == ''" ng-click="sendMessage()" value="Send!"/>
-            <input class="quit-button" type="button" class="btn btn-danger" ng-click="quit()" value="Quit"/>
+        <div class="span3 buttons">
+            <input type="button" class="btn btn-primary send-button" data-ng-disabled="chat.data.messageText == ''" ng-click="sendMessage()" value="Send!"/>
+            <input type="button" class="btn btn-danger quit-button" ng-click="quit()" value="Quit"/>
         </div>
     </div>
     <div class="clearfix"></div>
