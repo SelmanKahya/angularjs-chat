@@ -1,6 +1,6 @@
 # node server
-server/.idea/
-server/node_modules/
+node-server/.idea/
+node-server/node_modules/
 
 # angular
 angular-app/.idea/
