@@ -12,7 +12,4 @@ exports.init = function(){
     // sockjs will install its handlers on this route:
     app.set('CHAT_ROUTE', '/chat');
 
-    // returns list of online users
-    app.get('/users', chat.users);
-
 };
