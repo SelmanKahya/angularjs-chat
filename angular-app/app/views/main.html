@@ -43,7 +43,7 @@
             <input class="message" ng-model="chat.data.messageText" name="messageText" type="text" placeholder="Type your message here..">
         </div>
         <div class="span3 buttons">
-            <input type="button" class="btn btn-primary send-button" data-ng-disabled="chat.data.messageText == ''" ng-click="sendMessage()" value="Send!"/>
+            <input type="button" class="btn btn-primary send-button" data-ng-disabled="chat.data.messageText == ''" ng-click="sendButtonClicked()" value="Send!"/>
             <input type="button" class="btn btn-danger quit-button" ng-click="quit()" value="Quit"/>
         </div>
     </div>
