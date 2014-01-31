@@ -1,14 +1,13 @@
-// libs
+// import required libs
 express = require('express');
 http = require('http');
-path = require('path');
 
 // functions
 var socket = require('./func/socket.js');
 var route = require('./func/route.js');
 var environment = require('./func/environment.js');
 
-// application
+// create express app
 app = express();
 
 // set all environment variables
@@ -17,14 +16,15 @@ environment.set();
 // initialize the routes
 route.init();
 
-// server is going up, hold on!
+// server is going up, hold tight!
 var server = http.createServer(app);
+var port = app.get('port');
 
-server.listen(app.get('port'), function(){
+server.listen(port, function(){
 
-    console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server listening on port ' + port);
 
-    // install sockjs handlers
+    // now server is up, it is time to install sockjs handlers
     socket.init(server);
 
 });
