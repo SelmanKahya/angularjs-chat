@@ -18,7 +18,10 @@ route.init();
 
 // server is going up, hold tight!
 var server = http.createServer(app);
-var port = app.get('port');
+
+// Decides which port to use
+// AppFog port env. variable: process.env.VCAP_APP_PORT
+var port = parseInt(process.env.VCAP_APP_PORT) || app.get('port');
 
 server.listen(port, function(){
 
