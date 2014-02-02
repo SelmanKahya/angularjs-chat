@@ -27,6 +27,7 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route,
 
         status : {
             error: null,
+            starting: false,
             started: false
         },
 
@@ -57,6 +58,9 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route,
             // assigning socket object
             $scope.chat.socket = socket;
 
+            // starting the chat
+            $scope.chat.status.starting = true;
+
         }
 
     }
@@ -73,7 +77,7 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route,
     // After a new line added to chat history text area, scroll to the bottom to see it.
     // Otherwise, new messages in the chat window won't be shown to the user.
     $scope.scrollBottom = function() {
-        angular.element("#chat-history").animate({ scrollTop: angular.element("#chat-history")[0].scrollHeight - angular.element("#chat-history").height() }, 500)
+        angular.element("#chat-history").scrollTop(angular.element("#chat-history")[0].scrollHeight - angular.element("#chat-history").height());
     };
 
     /////////////////////////////////////////////////
@@ -82,6 +86,7 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route,
     $scope.onOpen = function(e) {
 
         // socket created successfully
+        $scope.chat.status.starting = false;
         $scope.chat.status.started = true;
         $scope.chat.status.error = null;
 
@@ -112,6 +117,7 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route,
             // retrieving list of the users from the server
             var users = angular.fromJson(response.data);
             $scope.chat.data.users = users;
+            console.log(users);
             $scope.$apply();
         }
 
@@ -137,11 +143,15 @@ angular.module('angularAppApp').controller('MainCtrl', function ($scope, $route,
     // Client sending a message to the server
     $scope.sendButtonClicked = function() {
 
-        // send a message in a proper format
-        $scope.send(REQUEST_TYPE.NEW_MESSAGE, $scope.chat.data.messageText);
+        if($scope.chat.data.messageText != ''){
 
-        // clear message box in the UI
-        $scope.chat.data.messageText = '';
+            // send a message in a proper format
+            $scope.send(REQUEST_TYPE.NEW_MESSAGE, $scope.chat.data.messageText);
+
+            // clear message box in the UI
+            $scope.chat.data.messageText = '';
+            
+        }
 
     };
 

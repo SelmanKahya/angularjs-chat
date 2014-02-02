@@ -1,13 +1,13 @@
 <!-- login pane -->
 <div ng-hide="chat.status.started">
-    <form name="myForm">
+    <form name="loginForm" ng-submit="init()">
         <div class="row login-pane">
             <div class="span6 input-field">
                 <input ng-model="username" name="username" required type="text" placeholder="Your nick-name..">
-                <span class="error" ng-show="myForm.username.$error.required">*</span><br>
+                <span class="error" ng-show="loginForm.username.$error.required">*</span><br>
             </div>
             <div class="span3">
-                <a class="btn btn-primary" ng-disabled="myForm.username.$error.required" ng-click="init()">Start chatting!</a>
+                <input type="submit" class="btn btn-primary" ng-disabled="loginForm.username.$error.required || chat.status.starting" value="Start Chatting!" />
             </div>
         </div>
     </form>
@@ -31,7 +31,7 @@
 
     <div class="span2" id="online-user-list">
         <div>
-            <span class="label label-info">Online Users</span>
+            <span class="label label-info">Online Users ({{chat.data.users.length}})</span>
         </div>
         <span ng-repeat="user in chat.data.users">{{user.name}} <br/></span>
     </div>
@@ -39,13 +39,15 @@
     <div class="clearfix"></div>
 
     <div class="chat-bottom">
-        <div class="span6">
-            <input class="message" ng-model="chat.data.messageText" name="messageText" type="text" placeholder="Type your message here..">
-        </div>
-        <div class="span3 buttons">
-            <input type="button" class="btn btn-primary send-button" data-ng-disabled="chat.data.messageText == ''" ng-click="sendButtonClicked()" value="Send!"/>
-            <input type="button" class="btn btn-danger quit-button" ng-click="quit()" value="Quit"/>
-        </div>
+        <form name="sendForm" ng-submit="sendButtonClicked()">
+            <div class="span6">
+                <input class="message" ng-model="chat.data.messageText" name="messageText" type="text" placeholder="Type your message here..">
+            </div>
+            <div class="span3 buttons">
+                <input type="submit" class="btn btn-primary send-button" data-ng-disabled="chat.data.messageText == ''" value="Send!"/>
+                <input type="button" class="btn btn-danger quit-button" ng-click="quit()" value="Quit"/>
+            </div>
+        </form>
     </div>
     <div class="clearfix"></div>
 </div>
