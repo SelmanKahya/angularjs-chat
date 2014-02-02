@@ -1,12 +1,13 @@
-// routes
-var routes = require('../routes');
-var chat = require('../routes/chat');
 
 // set routes
 exports.init = function(){
 
+    var index = function(req, res){
+        res.send('It works!');
+    };
+
     // route definitions
-    app.get('/', routes.index);
+    app.get('/', index);
 
     // CHAT ROUTES
     // sockjs will install its handlers on this route:

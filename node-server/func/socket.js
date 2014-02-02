@@ -77,8 +77,12 @@ var newRequest = function(conn, message){
 
     // New message to all the connected users
     if(request_type == REQUEST_TYPE.NEW_MESSAGE){
+
         broadcast(request_type, conn.user, message.data);
-        broadcast(request_type, {name: 'SERVER-ECHO'}, message.data);
+
+        // echo - you can delete this
+        conn.write(JSON.stringify({type: request_type, data: 'SERVER-ECHO: ' + message.data}));
+
     }
 
     // New user has joined to the chat room!
@@ -149,10 +153,14 @@ var broadcast = function(type, user, data){
 
         var user_info = [];
 
+        // push user information into the array
         for (var ii=0; ii < users.length; ii++) {
-            user_info.push(users[ii].user)
+            var username = users[ii].user.name;
+            if(username && username != "")
+                user_info.push(users[ii].user)
         }
 
+        // send users' information
         response.data = JSON.stringify(user_info);
         for (var ii=0; ii < users.length; ii++) {
             users[ii].write(JSON.stringify(response));
