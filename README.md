@@ -50,6 +50,8 @@ I tested the application using 2 browsers on the same computer. Sometimes when y
 
 * Then, you need to install dependencies for our Angular application. Cd to angular-app folder.  ``` $cd angular-app ```
 
+* Execute ``` $sudo npm install ```
+
 * And execute ``` $sudo bower install ```
 
 
@@ -61,7 +63,7 @@ I tested the application using 2 browsers on the same computer. Sometimes when y
 
 * Open another console and cd to angular-app folder  ``` $cd angular-app ```
 
-* Now, you can start the grunt server: ``` $grunt server ```
+* Now, you can start the grunt server: ``` $grunt serve ```
 
 * It will open the AngularJS app in your default browser. Have fun :)
 
