@@ -3,7 +3,7 @@ angularjs-chat
 
 A simple chat application written in AngularJS - using SockJS (not using server-side socket library such as Socket.io).
 
-For a complete overview of the project and features, see http://selmanh.github.io/angularjs-chat/
+-- For a complete overview of the project and features, see http://selmanh.github.io/angularjs-chat/
 
 ## About
 
@@ -27,9 +27,13 @@ I created a NodeJS server for this project. SockJS has implementations for other
 
 
 ### SockJS
-SockJS is a browser JavaScript library that provides a WebSocket-like object. SockJS gives you a coherent, cross-browser, Javascript API which creates a low latency, full duplex, cross-domain communication channel between the browser and the web server.
 
-Under the hood SockJS tries to use native WebSockets first. If that fails it can use a variety of browser-specific transport protocols and presents them through WebSocket-like abstractions.
+Taken from its readme:
+> SockJS is a browser JavaScript library that provides a WebSocket-like object. SockJS gives you a coherent, cross-browser, Javascript API which creates a low latency, full duplex, cross-domain communication channel between the browser and the web server.
+
+> Under the hood SockJS tries to use native WebSockets first. If that fails it can use a variety of browser-specific transport protocols and presents them through WebSocket-like abstractions.
+
+For more details about the SockJS project, see https://github.com/sockjs/sockjs-client.
 
 ### Issues
 
