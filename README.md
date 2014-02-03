@@ -9,19 +9,19 @@ For a complete overview of the project and features, see http://selmanh.github.i
 
 Currently, I am working on my Master's degree final project (Chrome Application - soon to be published on Chrome Store, you can find the source code here: [link](https://github.com/Selmanh/smart-read)) and one of my assignments was to develop a multi-player word guessing game. 
 
-While I was looking for options to create a multi-player game with chat support in AngularJS, I realized that, in so many projects, NodeJS was serving the AngularJS files, and it was using server-side socket libraries such as Socket.IO.
+While I was looking for options to create a multi-player game with chat support in AngularJS, I realized that, in so many projects, NodeJS was serving the AngularJS application using ExpressJS as a web application framework, and it was using server-side socket libraries such as Socket.IO.
 
-After considering a few other alternatives, I decided to use SockJS and thankfully, it was a success. After playing around with it, I thought it might be useful for others to have a working application that use both AngularJS and SockJS. So, I decided to create this application. 
+After carefully considering a few other alternatives, I decided to use SockJS which doesn't force to serve AngularJS files from the server. After playing around with it, I thought it might be useful for others to have a working application that use both AngularJS and SockJS and decided to create this application. 
 
 ## Details
 
-I created NodeJS server for this project. SockJS has implementations for other langugages as well, see https://github.com/sockjs.
+I created a NodeJS server for this project. SockJS has implementations for other langugages as well, see https://github.com/sockjs.
 
 ### Dependencies
 
 - AngularJS, [sockjs-client](https://github.com/sockjs/sockjs-client)
 
-- NodeJS, [express](expressjs.com), [sockjs-client-node](https://github.com/sockjs/sockjs-client-node)
+- NodeJS, [express](expressjs.com), [sockjs-client-node](https://github.com/sockjs/sockjs-node)
 
 - Package managers ([Bower](http://bower.io/), [NPM](https://npmjs.org/)) and finally [Grunt](http://gruntjs.com/)
 
@@ -33,7 +33,7 @@ Under the hood SockJS tries to use native WebSockets first. If that fails it can
 
 ### Issues
 
-I am sure you can break the server, but please, just don't do that :) This is a simple project to show you how to use AngularJS and SockJS to create interactive applications. 
+I am sure you can break the live server (http://angularjs-chat-server.aws.af.cm/), but please, just try not to do that :) This is a simple project to show you how to use AngularJS and SockJS to create interactive applications. 
 
 I tested the application using 2 browsers on the same computer. Sometimes when you quit chat on one browser, the connection on the other browser gets broken. Feel free to fix the issue :)
 
