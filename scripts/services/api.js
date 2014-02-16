@@ -1,7 +1,7 @@
 'use strict';
 
 // var server = "http://localhost:3000/chat";
-var server = "http://angularjs-chat-server.aws.af.cm/chat";
+var server = "http://chat-selmanh.rhcloud.com/chat";
 
 angular.module('angularAppApp').factory('chatService', function($http) {
     return {
